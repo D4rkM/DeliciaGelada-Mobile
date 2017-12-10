@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -18,17 +19,25 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import br.com.deliciagelada.deliciagelada.API.Http;
+import br.com.deliciagelada.deliciagelada.DAO.AvaliacaoDAO;
 import br.com.deliciagelada.deliciagelada.R;
 
 public class Detalhes extends AppCompatActivity {
 
+    AvaliacaoDAO dao = AvaliacaoDAO.getInstance();
     TextView nome, preco, descricao;
     ImageView foto;
     RatingBar ratingBar;
     String tel;
-
-    //Salva a avaliação da pessoa
-    private static final double STAR_RATING = 0.0;
+    Integer idProduto;
+    Intent intent;
+    Double avaliacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +52,18 @@ public class Detalhes extends AppCompatActivity {
         foto = (ImageView) findViewById(R.id.imgProdDetail);
         ratingBar = (RatingBar) findViewById(R.id.ratingBarId);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         nome.setText(intent.getStringExtra("nome"));
         descricao.setText(intent.getStringExtra("descricao"));
         preco.setText(intent.getStringExtra("preco"));
         tel = intent.getStringExtra("telefone");
+        idProduto = intent.getIntExtra("codigo",0);
+
+        verEstrela();
+
         // Inicia o numero de estrelas de acordo com o que estiver salvo
 //        ratingBar.setBackgroundResource(R.color.preRate);
-        ratingBar.setRating((float) intent.getDoubleExtra("estrela", 0.0));
+
         Picasso.with(this)
 //                .load("http://10.0.2.2/API/"+item.getFoto())
 //                .load("http://10.0.2.2/inf3m/TurmaB/PDG/cms/"+intent.getStringExtra("foto"))
@@ -59,16 +72,14 @@ public class Detalhes extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                Double e = Double.valueOf(ratingBar.getRating());
-                Toast.makeText(getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
-                ratingBar.setEnabled(false);
+                avaliacao = Double.valueOf(ratingBar.getRating());
+                //Toast.makeText(getApplicationContext(), ""+avaliacao, Toast.LENGTH_SHORT).show();
 
-                SharedPreferences sharedPreferences = getSharedPreferences(String.valueOf(STAR_RATING), 0);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                editor.putFloat("star", ratingBar.getRating());
-                editor.commit();
-                Toast.makeText(Detalhes.this, "Avaliação salva", Toast.LENGTH_SHORT).show();
+                if(dao.inserirAvaliacao(getApplicationContext(), idProduto, avaliacao)){
+                    ratingBar.setEnabled(false);
+                    inserirAvaliacao();
+                    Toast.makeText(Detalhes.this, "Avaliação salva", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -94,18 +105,65 @@ public class Detalhes extends AppCompatActivity {
             }
         });
 
-        recuperarVoto();
     }
+    //Verifica se o usuario já votou nesse produto
+    private void verEstrela(){
+        Double av = dao.obterPorId(this, idProduto);
 
-    private void recuperarVoto(){
-        SharedPreferences sharedPreferences = getSharedPreferences(String.valueOf(STAR_RATING), 0);
-        if(sharedPreferences.contains("star")){
-            Float rate = sharedPreferences.getFloat("star", 0.0f);
-            ratingBar.setRating(rate);
+        if (av > 0){
+            ratingBar.setRating(Float.parseFloat(String.valueOf(av)));
             ratingBar.setEnabled(false);
         }else{
+            ratingBar.setRating((float) intent.getDoubleExtra("estrela", 0.0));
             ratingBar.setEnabled(true);
         }
+    }
+
+    private void inserirAvaliacao(){
+
+        final String url = "http://192.168.0.109/inf3m/TurmaB/PDG/inserirAvaliacao.php";
+
+        final HashMap<String, String> valores = new HashMap<>();
+        valores.put("avaliacao", avaliacao.toString());
+        valores.put("idProduto", String.valueOf(idProduto));
+
+        new AsyncTask<Void, Void, Void>(){
+
+            Boolean sucesso = false;
+            String mensagem = "";
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                String resultado = Http.post(url, valores);
+
+                try{
+                    JSONObject jsonObject = new JSONObject(resultado);
+                    sucesso = jsonObject.getBoolean("sucesso");
+                    mensagem = jsonObject.getString("mensagem");
+                }catch (JSONException e){
+                    e.printStackTrace();
+                    sucesso = false;
+                    mensagem = "Erro ao inserir";
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                if(sucesso){
+                    Toast.makeText(Detalhes.this, "Inserido com sucesso.", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }.execute();
 
     }
 

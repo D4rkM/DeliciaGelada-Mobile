@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, Detalhes.class);
                 Produto p = produtoAdapter.getItem(i);
+                intent.putExtra("codigo", p.getCodigo());
                 intent.putExtra("nome", p.getNome());
                 intent.putExtra("descricao", p.getDescricao());
                 intent.putExtra("preco", p.getPreco().toString());
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                Uri uri = Uri.parse("tel:" + "40028922");
+                //Uri uri = Uri.parse("tel:" + "40028922");
 
                 Uri uri = Uri.parse("tel:"+dados.getTelefone());
                 Intent intent = new Intent(Intent.ACTION_CALL, uri);
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         }else{
                             star = item.getDouble("estrelas");
                         }
-                        Produto p = Produto.create(item.getString("nome"),item.getString("descricao"),item.getDouble("preco"),item.getString("foto"),star);
+                        Produto p = Produto.create(item.getInt("codigo"), item.getString("nome"),item.getString("descricao"),item.getDouble("preco"),item.getString("foto"),star);
                         lstProdutos.add(p);
                     }
 

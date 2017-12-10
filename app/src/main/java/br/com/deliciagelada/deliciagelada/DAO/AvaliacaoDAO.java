@@ -2,6 +2,7 @@ package br.com.deliciagelada.deliciagelada.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import br.com.deliciagelada.deliciagelada.Database.DatabaseHelper;
@@ -40,6 +41,24 @@ public class AvaliacaoDAO {
 
         db.close();
         return verificador;
+    }
+
+    public Double obterPorId(Context context, Integer idProduto){
+        SQLiteDatabase db = new DatabaseHelper(context).getReadableDatabase();
+
+        Double av = 0.0;
+
+        Cursor cursor = db.rawQuery("SELECT * FROM tbl_avaliacao WHERE idProduto = ?", new String[]{String.valueOf(idProduto)});
+
+        if(cursor.moveToFirst()){
+            av = cursor.getDouble(2);
+            if(av == null){
+                av = 0.0;
+            }
+        }
+
+        db.close();
+        return av;
     }
 
 }

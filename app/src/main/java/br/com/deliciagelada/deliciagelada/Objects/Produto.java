@@ -16,9 +16,10 @@ public class Produto {
     private int codSubCategoria;
 
     //Fabrica de Produtos
-    public static Produto create(String nome,String descricao, Double preco, String foto, Double estrelas){
+    public static Produto create(int codigo, String nome,String descricao, Double preco, String foto, Double estrelas){
 
         Produto p = new Produto();
+        p.setCodigo(codigo);
         p.setNome(nome);
         p.setDescricao(descricao);
         p.setPreco(preco);
