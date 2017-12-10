@@ -7,5 +7,6 @@
     <string name="nomeProduto">Nome: </string>
     <string name="descProduto">Descrição: </string>
     <string name="preco">Preço: </string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

@@ -3,4 +3,5 @@
     <color name="colorPrimary">#ffa500</color>
     <color name="colorPrimaryDark">#ffc458</color>
     <color name="colorAccent">#118100</color>
+    <color name="preRate">#b917ae00</color>
 </resources>

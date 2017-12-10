@@ -1,4 +1,4 @@
-package br.com.deliciagelada.deliciagelada;
+package br.com.deliciagelada.deliciagelada.Objects;
 
 /**
  * Created by 16254861 on 29/11/2017.
@@ -6,22 +6,23 @@ package br.com.deliciagelada.deliciagelada;
 
 public class Produto {
 
-
     private int codigo;
     private String nome;
     private String descricao;
     private Double preco;
     private String foto;
     private Boolean ativo;
+    private Double estrelas;
     private int codSubCategoria;
 
     //Fabrica de Produtos
-    public static Produto create(String nome,String descricao, Double preco, String foto){
+    public static Produto create(String nome,String descricao, Double preco, String foto, Double estrelas){
 
         Produto p = new Produto();
         p.setNome(nome);
         p.setDescricao(descricao);
         p.setPreco(preco);
+        p.setEstrelas(estrelas);
         p.setFoto(foto);
         return p;
     }
@@ -83,4 +84,11 @@ public class Produto {
     }
 
 
+    public Double getEstrelas() {
+        return estrelas;
+    }
+
+    public void setEstrelas(Double estrelas) {
+        this.estrelas = estrelas;
+    }
 }

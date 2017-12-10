@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="br.com.deliciagelada.deliciagelada.Detalhes"
+    tools:context="br.com.deliciagelada.deliciagelada.Activities.Detalhes"
     tools:showIn="@layout/activity_detalhes">
 
     <LinearLayout
@@ -74,6 +74,11 @@
                 android:id="@+id/descDetalhe"/>
 
         </LinearLayout>
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
 
     </LinearLayout>
 

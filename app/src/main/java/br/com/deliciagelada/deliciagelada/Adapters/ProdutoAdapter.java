@@ -1,4 +1,4 @@
-package br.com.deliciagelada.deliciagelada;
+package br.com.deliciagelada.deliciagelada.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import br.com.deliciagelada.deliciagelada.Objects.Produto;
+import br.com.deliciagelada.deliciagelada.R;
 
 /**
  * Created by 16254861 on 29/11/2017.
@@ -43,7 +46,8 @@ public class ProdutoAdapter extends ArrayAdapter<Produto> {
 
         Picasso.with(getContext())
 //                .load("http://10.0.2.2/API/"+item.getFoto())
-                .load("http://10.0.2.2/inf3m/TurmaB/PDG/cms/"+item.getFoto())
+//                .load("http://10.0.2.2/inf3m/TurmaB/PDG/cms/"+item.getFoto())
+                .load("http://192.168.0.109/inf3m/TurmaB/PDG/cms/"+item.getFoto())
                 .into(img_foto);
 
         txt_nome.setText(item.getNome());
