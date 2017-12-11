@@ -46,8 +46,8 @@ public class ProdutoAdapter extends ArrayAdapter<Produto> {
 
         Picasso.with(getContext())
 //                .load("http://10.0.2.2/API/"+item.getFoto())
-//                .load("http://10.0.2.2/inf3m/TurmaB/PDG/cms/"+item.getFoto())
-                .load("http://192.168.0.109/inf3m/TurmaB/PDG/cms/"+item.getFoto())
+                .load("http://10.0.2.2/inf3m/TurmaB/PDG/cms/"+item.getFoto())
+//                .load("http://192.168.0.109/inf3m/TurmaB/PDG/cms/"+item.getFoto())
                 .into(img_foto);
 
         txt_nome.setText(item.getNome());

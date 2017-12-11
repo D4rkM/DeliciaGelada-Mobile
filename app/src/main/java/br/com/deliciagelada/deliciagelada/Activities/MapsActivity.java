@@ -1,10 +1,8 @@
 package br.com.deliciagelada.deliciagelada.Activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,13 +12,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import br.com.deliciagelada.deliciagelada.API.Http;
 import br.com.deliciagelada.deliciagelada.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {

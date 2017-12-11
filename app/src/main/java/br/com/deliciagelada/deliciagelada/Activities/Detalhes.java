@@ -2,7 +2,6 @@ package br.com.deliciagelada.deliciagelada.Activities;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -66,8 +65,8 @@ public class Detalhes extends AppCompatActivity {
 
         Picasso.with(this)
 //                .load("http://10.0.2.2/API/"+item.getFoto())
-//                .load("http://10.0.2.2/inf3m/TurmaB/PDG/cms/"+intent.getStringExtra("foto"))
-                .load("http://192.168.0.109/inf3m/TurmaB/PDG/cms/"+intent.getStringExtra("foto"))
+                .load("http://10.0.2.2/inf3m/TurmaB/PDG/cms/"+intent.getStringExtra("foto"))
+//                .load("http://192.168.0.109/inf3m/TurmaB/PDG/cms/"+intent.getStringExtra("foto"))
                 .into(foto);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override

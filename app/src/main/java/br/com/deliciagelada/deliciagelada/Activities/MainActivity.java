@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Uri uri = Uri.parse("tel:"+dados.getTelefone());
                 Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE},10);
@@ -120,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("latitude", dados.getLatitude());
             intent.putExtra("longitude", dados.getLongitude());
             intent.putExtra("nomeLocal", dados.getNomeLocal());
+//            intent.putExtra("latitude", -0);
+//            intent.putExtra("longitude", -0);
+//            intent.putExtra("nomeLocal", "irineu");
 //            intent.putExtra("telefone", dados.getTelefone());
             startActivity(intent);
             return true;
@@ -136,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 //Usando ip local do celular -- Não funciona quando for usar em servidores de hospedagem
-//                String retornoJson = Http.get("http://10.0.2.2/inf3m/TurmaB/PDG/selecionarProduto.php"); //==== (utiliza ip proprio do celular para comunicação com servidor
+                String retornoJson = Http.get("http://10.0.2.2/inf3m/TurmaB/PDG/selecionarProduto.php"); //==== (utiliza ip proprio do celular para comunicação com servidor
 //                String retornoJson = Http.get("http://10.107.144.29/inf3m/TurmaB/PDG/selecionarProduto.php");
-                String retornoJson = Http.get("http://192.168.0.109/inf3m/TurmaB/PDG/selecionarProduto.php");
+//                String retornoJson = Http.get("http://192.168.0.109/inf3m/TurmaB/PDG/selecionarProduto.php");
 
                 try{
 
@@ -181,9 +185,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 //Usando ip local do celular -- Não funciona quando for usar em servidores de hospedagem
-//                String retornoJson = Http.get("http://10.0.2.2/inf3m/TurmaB/PDG/selecionar.php"); //==== (utiliza ip proprio do celular para comunicação com servidor
-//                String retornoJson = Http.get("http://10.107.144.29/inf3m/TurmaB/PDG/selecionar.php");
-                String retornoJson = Http.get("http://192.168.0.109/inf3m/TurmaB/PDG/selecionarEmpresa.php");
+                String retornoJson = Http.get("http://10.0.2.2/inf3m/TurmaB/PDG/selecionarEmpresa.php"); //==== (utiliza ip proprio do celular para comunicação com servidor
+//                String retornoJson = Http.get("http://10.107.144.29/inf3m/TurmaB/PDG/selecionarEmpresa.php");
+//                String retornoJson = Http.get("http://192.168.0.109/inf3m/TurmaB/PDG/selecionarEmpresa.php");
 
                 try{
 
