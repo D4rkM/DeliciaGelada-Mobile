@@ -105,7 +105,7 @@ public class Detalhes extends AppCompatActivity {
         });
 
     }
-    //Verifica se o usuario já votou nesse produto
+    //Verifica se o usuario já votou nesse produto e pega avaliaçao do sqlite
     private void verEstrela(){
         Double av = dao.obterPorId(this, idProduto);
 
@@ -117,10 +117,10 @@ public class Detalhes extends AppCompatActivity {
             ratingBar.setEnabled(true);
         }
     }
-
+    //Pega avaliação do banco mysql
     private void inserirAvaliacao(){
 
-        final String url = "http://192.168.0.109/inf3m/TurmaB/PDG/inserirAvaliacao.php";
+        final String url = "http://10.0.2.2/inf3m/TurmaB/PDG/inserirAvaliacao.php";
 
         final HashMap<String, String> valores = new HashMap<>();
         valores.put("avaliacao", avaliacao.toString());
